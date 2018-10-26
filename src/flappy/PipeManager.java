@@ -34,7 +34,6 @@ public class PipeManager {
 		pipe.y2 = Game.h - pipe.length2;
 
 		pipe.x = firstX;
-		System.out.println(firstX);
 		firstX += 300;
 	}
 
