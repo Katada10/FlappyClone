@@ -1,8 +1,22 @@
-package core;
+package flappy;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandle implements KeyListener {
+public class BirdManager implements KeyListener{
+
+	public int birdY = 250;
+	public int gravity = 5;
+	
+	public void play()
+	{
+		birdY += gravity;
+	}
+	     
+	public void stop()
+	{
+		gravity = 50;
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -13,7 +27,10 @@ public class KeyHandle implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			birdY -= 40;
+		}
 	}
 
 	@Override
@@ -21,5 +38,4 @@ public class KeyHandle implements KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

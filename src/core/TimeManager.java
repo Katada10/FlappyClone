@@ -4,7 +4,7 @@ import java.awt.event.WindowListener;
 
 public class TimeManager implements Runnable, WindowListener {
 	private Thread thread;
-	private boolean isRunning;
+	public static boolean isRunning;
 	private Game game;
 	
 	public TimeManager(Game g) {

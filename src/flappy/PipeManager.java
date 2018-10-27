@@ -1,6 +1,5 @@
 package flappy;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,18 +28,26 @@ public class PipeManager {
 	}
 
 	private void setPipe(Pipe pipe) {
-		pipe.length1 = rand.nextInt(30) + 230;	//Max 260
-		pipe.length2 = rand.nextInt(160) + 150;	//Max 260
+		pipe.length1 = rand.nextInt(25) + 230;	//Max 255
+		pipe.length2 = rand.nextInt(150) + 150;	//Max 260
 		pipe.y2 = Game.h - pipe.length2;
 
 		pipe.x = firstX;
 		firstX += 300;
 	}
+	
+	public void stop()
+	{
+		for (Pipe pipe : pipes) {
+			pipe.moveFactor = 0;
+		}
+		firstX = 0;
+	}
 
 	public ArrayList<Pipe> getPipes() {
 		return pipes;
 	}
-
+        
 	public void play() {
 		for (Pipe pipe : pipes) {
 			pipe.play();

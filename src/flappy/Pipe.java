@@ -7,6 +7,7 @@ import core.Game;
 public class Pipe {
 
 	public int x, length1, length2;
+	public int moveFactor = 10;
 	
 	public int y1 = 0, y2, width = 50;
 	
@@ -18,6 +19,6 @@ public class Pipe {
 	
 	public void play()
 	{
-		x -= 8;
+		x -= moveFactor;
 	}
 }
