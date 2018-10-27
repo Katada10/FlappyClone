@@ -17,6 +17,15 @@ public class PipeManager {
 		create();
 	}
 
+	
+	public void reset()
+	{
+		for (Pipe pipe : pipes) {
+			pipe.moveFactor = 10;
+		}
+		firstX = Game.w;
+	}
+	
 	private void create() {
 		for (int i = 0; i < 3; i++) {
 			pipes.add(new Pipe());

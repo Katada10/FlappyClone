@@ -2,6 +2,8 @@ package core;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.font.FontRenderContext;
 
 import javax.swing.JButton;
@@ -11,7 +13,7 @@ import javax.swing.JPanel;
 
 import flappy.*;
 
-public class Game extends JFrame{
+public class Game extends JFrame implements KeyListener{
 	
 	private static final long serialVersionUID = 1L;
 	private PipeManager p;
@@ -20,9 +22,12 @@ public class Game extends JFrame{
 	private String score;
 	private float scrFlt;
 	
-	private boolean isGameOver = false;
+	public static boolean isGameOver = false;
 	
+	private String highScrFnt = "";
 	private float highScore;
+	
+	private String restartStr = "";
 	
 	public static int w = 800, h = 600;
 	
@@ -48,6 +53,7 @@ public class Game extends JFrame{
 		
 		add(panel);
 		addKeyListener(b);
+		addKeyListener(this);
 		
 		setVisible(true);
 	}
@@ -65,12 +71,13 @@ public class Game extends JFrame{
 			p.play();
 			b.play();
 			score();
-			collide();
+			collide();     
 			repaint();
 		}
 		else
 		{
 			stop();
+			scrFlt = 0;
 		}
 	}
 	
@@ -80,9 +87,17 @@ public class Game extends JFrame{
 		p.stop();
 		b.stop();
 		
-		highScore = scrFlt;
+		
+		if(scrFlt > highScore) {
+			highScore = scrFlt;
+		}
+		highScrFnt = "High Score: " + highScore;
+	
+		restartStr = "Restart? (Y / N)";
+		
+		repaint();
+	
 	}
-
 	
 	public void collide()
 	{
@@ -94,6 +109,18 @@ public class Game extends JFrame{
 			}
 			
 		}
+	}
+	
+	
+	public void reset()
+	{
+		p.reset();
+		b.reset();
+		
+		highScrFnt = "";
+		restartStr = "";
+		scrFlt = 0;
+		isGameOver = false;
 	}
 	
 	public void paint(Graphics g)
@@ -114,9 +141,44 @@ public class Game extends JFrame{
 		}
 		
 		g.setColor(Color.WHITE);
-		Font f = new Font("Score : ", Font.PLAIN, 16);
+		Font f = new Font(score, Font.PLAIN, 16);
 		g.setFont(f);
-		g.drawString(score, 50, 50);
+		g.drawString(score, 50   , 50);
+		
+		
+		g.setFont(new Font(highScrFnt, Font.BOLD, 40));
+		g.drawString(highScrFnt, 200, 300);
+		
+		g.setFont(new Font(restartStr, Font.PLAIN, 30));
+		g.drawString(restartStr, 300, 350);
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(isGameOver)
+		{
+			if(e.getKeyCode() == KeyEvent.VK_N)
+			{
+				System.exit(0);
+			}
+			if(e.getKeyCode() == KeyEvent.VK_Y)
+			{
+				reset();
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
