@@ -19,7 +19,7 @@ public class Game extends JFrame implements KeyListener{
 	private PipeManager p;
 	private BirdManager b;
 	
-	private String score;
+	private String score = "";
 	private float scrFlt;
 	
 	public static boolean isGameOver = false;
@@ -34,7 +34,6 @@ public class Game extends JFrame implements KeyListener{
 	public Game()
 	{
 		init();
-		score = "Score: ";
 		scrFlt = 0;
 		highScore = 0;
 	}
@@ -61,7 +60,7 @@ public class Game extends JFrame implements KeyListener{
 	public void score()
 	{
 		scrFlt += 0.05f;
-		score = "Score: " + scrFlt;
+		score = "Score: " + Math.round(scrFlt);
 	}
 	
 	public void play()       
@@ -89,7 +88,7 @@ public class Game extends JFrame implements KeyListener{
 		
 		
 		if(scrFlt > highScore) {
-			highScore = scrFlt;
+			highScore = Math.round(scrFlt);
 		}
 		highScrFnt = "High Score: " + highScore;
 	
@@ -103,7 +102,7 @@ public class Game extends JFrame implements KeyListener{
 	{
 		for (Pipe pipe : p.getPipes()) {
 			
-			if(((b.birdY - pipe.length1 < 0 && (pipe.x == 50))) || (b.birdY > pipe.y2 && (pipe.x == 50)))
+			if(((b.birdY - pipe.length1 <= 0 && (pipe.x == 50))) || (b.birdY >= pipe.y2 && (pipe.x == 50)))
 			{
 				isGameOver = true;
 			}

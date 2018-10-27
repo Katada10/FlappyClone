@@ -34,14 +34,9 @@ public class BirdManager implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getKeyCode() == KeyEvent.VK_SPACE)
+		if(!Game.isGameOver && e.getKeyCode() == KeyEvent.VK_SPACE)
 		{
 			birdY -= 40;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_R)
-		{
-			Game.isGameOver = false;
 		}
 	}
 
